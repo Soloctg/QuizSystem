@@ -12,6 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         //
+        'isAdmin' => \App\Http\Middleware\isAdmin::class,
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
