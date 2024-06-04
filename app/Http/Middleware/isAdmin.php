@@ -22,7 +22,7 @@ class isAdmin
             return $next($request);
         }
 
-        abort(403);
+        return abort(403);
         //return $next($request);
 
     }

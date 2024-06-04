@@ -1,4 +1,4 @@
-
+<x-app-layout>
     {{-- The whole world belongs to you. --}}
     <div>
         <x-slot name="header">
@@ -47,3 +47,4 @@
             </div>
         </div>
     </div>
+</x-app-layout>

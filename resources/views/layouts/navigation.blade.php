@@ -8,6 +8,8 @@
                     <a href="{{ route('dashboard') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
+
+
                 </div>
 
                 <!-- Navigation Links -->
@@ -38,9 +40,24 @@
                             <x-dropdown-link :href="route('questions')">
                                 Questions
                             </x-dropdown-link>
+
+                            <x-dropdown-link :href="route('quizzes')">
+                                Quizzes
+                            </x-dropdown-link>
+
                         </x-slot>
+
+
+
+
                     </x-dropdown>
+
+                <x-slot name="content">
+
+                </x-slot>
+
                 @endadmin
+
 
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
