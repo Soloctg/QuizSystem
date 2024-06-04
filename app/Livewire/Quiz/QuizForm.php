@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Livewire\Quiz;
-
-//use App\Models\Question;
+use App\Models\Question;
 use Illuminate\Support\Str;
 
 use Illuminate\Contracts\View\View;
-//use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\RedirectResponse;
 use Livewire\Features\SupportRedirects\Redirector;
 
 use App\Models\Quiz;
@@ -24,9 +23,9 @@ class QuizForm extends Component
 
     public bool $editing = false;
 
-    public array $questions = [];
-
     public array $listsForFields = [];
+
+    public array $questions = [];
 
     public function render(): View
     {
@@ -35,6 +34,8 @@ class QuizForm extends Component
 
     public function mount(Quiz $quiz): void
     {
+        $this->initListsForFields();
+
         if ($quiz->exists) {
             $this->quiz = $quiz;
             $this->editing = true;
@@ -43,6 +44,8 @@ class QuizForm extends Component
             $this->description = $quiz->description;
             $this->published = $quiz->published;
             $this->public = $quiz->public;
+
+            $this->questions = $quiz->questions()->pluck('id')->toArray();
         } else {
             $this->published = false;
             $this->public = false;
@@ -60,11 +63,16 @@ class QuizForm extends Component
 
             if (empty($this->quiz)) {
                 $this->quiz = Quiz::create($this->only(['title', 'slug', 'description', 'published', 'public']));
-            } else {
+            }
+
+            else {
                 $this->quiz->update($this->only(['title', 'slug', 'description', 'published', 'public']));
             }
 
+            $this->quiz->questions()->sync($this->questions);
+
             return to_route('quizzes');
+
         }
 
         protected function rules(): array
@@ -92,6 +100,11 @@ class QuizForm extends Component
                     'array'
                 ],
             ];
+        }
+
+        protected function initListsForFields(): void
+        {
+            $this->listsForFields['questions'] = Question::pluck('question_text', 'id')->toArray();
         }
 
 }

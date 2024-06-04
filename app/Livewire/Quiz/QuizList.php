@@ -8,13 +8,13 @@ use Livewire\Component;
 
 class QuizList extends Component
 {
-    
+
 
 
     public function render(): View
     {
-        $quizzes = Quiz::latest()->paginate();
-
+        //$quizzes = Quiz::latest()->paginate();
+        $quizzes = Quiz::withCount('questions')->latest()->paginate();
         return view('livewire.quiz.index', compact('quizzes'));
         //return view('livewire.quiz.quiz-list');
     }
