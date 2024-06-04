@@ -8,10 +8,7 @@ use Livewire\Component;
 
 class QuizList extends Component
 {
-    //public function render()
-   // {
-        //return view('livewire.quiz.quiz-list');
-   // }
+    
 
 
     public function render(): View

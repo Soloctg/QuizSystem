@@ -12,7 +12,7 @@ class QuestionForm extends Component
 
 
         //public ?Question $question = null;
-public Question $question;
+        public Question $question;
 
         public string $question_text = '';
         public string|null $code_snippet = '';
