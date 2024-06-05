@@ -52,11 +52,11 @@
 
                     </x-dropdown>
 
-                <x-slot name="content">
 
-                </x-slot>
 
                 @endadmin
+
+                @auth
 
 
                 <x-dropdown align="right" width="48">
@@ -89,6 +89,10 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
+                @else
+                    <x-nav-link :href="route('login')">Log in</x-nav-link>
+                    <x-nav-link :href="route('register')">Register</x-nav-link>
+                    @endauth
             </div>
 
             <!-- Hamburger -->
@@ -105,6 +109,7 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
@@ -113,12 +118,13 @@
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-            </div>
+            @auth
+                <div class="px-4">
+                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                </div>
 
-            <div class="mt-3 space-y-1">
+                <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
@@ -134,6 +140,11 @@
                     </x-responsive-nav-link>
                 </form>
             </div>
+
+            @else
+                <x-responsive-nav-link :href="route('login')">Log in</x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('register')">Register</x-responsive-nav-link>
+                @endauth
         </div>
     </div>
 </nav>
