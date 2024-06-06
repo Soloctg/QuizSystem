@@ -20,7 +20,6 @@ return new class extends Migration
             $table->foreignId('quiz_id')->nullable()->constrained();
             $table->timestamps();
             $table->softDeletes();
-            $table->timestamps();
         });
     }
 

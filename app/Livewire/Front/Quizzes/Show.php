@@ -11,6 +11,7 @@ use App\Models\QuestionOption;
 use App\Models\Test;
 use App\Models\TestAnswer;
 use Livewire\Component;
+use Livewire\Features\SupportRedirects\Redirector;
 
 class Show extends Component
 {
@@ -66,7 +67,7 @@ class Show extends Component
         $this->currentQuestion = $this->questions[$this->currentQuestionIndex];
     }
 
-    public function submit()
+    public function submit(): Redirector|RedirectResponse
     {
         $result = 0;
 
@@ -99,7 +100,8 @@ class Show extends Component
             'result' => $result,
         ]);
 
-        return to_route('home');
+        //return to_route('home');
+        return to_route('results.show', $test);
     }
 
 

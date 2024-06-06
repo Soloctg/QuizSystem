@@ -17,6 +17,16 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('leaderboard')" :active="request()->routeIs('leaderboard')">
+                        Leaderboard
+                    </x-nav-link>
+
+                    @auth
+                        <x-nav-link :href="route('results.index')" :active="request()->routeIs('results.index')">
+                            My Results
+                        </x-nav-link>
+                    @endauth
                 </div>
             </div>
 
@@ -44,6 +54,8 @@
                             <x-dropdown-link :href="route('quizzes')">
                                 Quizzes
                             </x-dropdown-link>
+
+
 
                         </x-slot>
 
@@ -76,6 +88,8 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
+
+
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
