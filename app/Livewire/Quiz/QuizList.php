@@ -5,6 +5,7 @@ namespace App\Livewire\Quiz;
 use App\Models\Quiz;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Symfony\Component\HttpFoundation\Response;
 
 class QuizList extends Component
 {
@@ -15,8 +16,8 @@ class QuizList extends Component
     {
         //$quizzes = Quiz::latest()->paginate();
         $quizzes = Quiz::withCount('questions')->latest()->paginate();
-        return view('livewire.quiz.index', compact('quizzes'));
-        //return view('livewire.quiz.quiz-list');
+        return view('livewire.quiz.quiz-list', compact('quizzes'));
+
     }
 
     public function delete(Quiz $quiz): void

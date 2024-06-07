@@ -13,6 +13,8 @@ class Question extends Model
     use HasFactory, SoftDeletes;
 
 
+    use SoftDeletes;
+
     protected $fillable = [
         'question_text',
         'code_snippet',
@@ -24,8 +26,6 @@ class Question extends Model
     {
         return $this->hasMany(QuestionOption::class)->inRandomOrder();
     }
-
-
 
     public function quizzes(): BelongsToMany
     {

@@ -37,39 +37,39 @@
                             </thead>
 
                             <tbody class="bg-white divide-y divide-gray-200 divide-solid">
-                                @forelse($tests as $test)
-                                    <tr class="bg-white">
-                                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                                            {{ $test->id }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                                            {{ $test->user->name ?? 'Guest' }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                                            {{ $test->quiz->title }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                                            {{ $test->result.'/'.$test->questions_count }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                                            {{ $test->ip_address }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                                            {{ intval($test->time_spent / 60) }}:{{ gmdate('s', $test->time_spent) }} minutes
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('results.show', $test) }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
-                                                View
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="8" class="px-6 py-4 text-center leading-5 text-gray-900 whitespace-no-wrap">
-                                            No tests were found.
-                                        </td>
-                                    </tr>
-                                @endforelse
+                            @forelse($tests as $test)
+                                <tr class="bg-white">
+                                    <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
+                                        {{ $test->id }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
+                                        {{ $test->user->name ?? 'Guest' }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
+                                        {{ $test->quiz->title }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
+                                        {{ $test->result.'/'.$test->questions_count }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
+                                        {{ $test->ip_address }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
+                                        {{ intval($test->time_spent / 60) }}:{{ gmdate('s', $test->time_spent) }} minutes
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('results.show', $test) }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
+                                            View
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="8" class="px-6 py-4 text-center leading-5 text-gray-900 whitespace-no-wrap">
+                                        No tests were found.
+                                    </td>
+                                </tr>
+                            @endforelse
                             </tbody>
                         </table>
                     </div>

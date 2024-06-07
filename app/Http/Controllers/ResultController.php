@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Test;
 use App\Models\TestAnswer;
 use App\Models\User;
-//use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View;
 
 class ResultController extends Controller
 {
@@ -21,7 +19,7 @@ class ResultController extends Controller
             ->with('question.questionOptions')
             ->get();
 
-        if ($test->quiz->public == 0) {
+        if (! $test->quiz->public) {
             $users = User::select('users.id', 'users.name', \DB::raw('sum(tests.result) as correct'), \DB::raw('sum(tests.time_spent) as time_spent'))
                 ->join('tests', 'users.id', '=', 'tests.user_id')
                 ->where('tests.quiz_id', $test->quiz_id)
@@ -31,11 +29,7 @@ class ResultController extends Controller
                 ->orderBy('time_spent')
                 ->get();
         }
-
         return view('front.results.show', compact('test', 'results', 'total_questions', 'users'));
-        //return view('front.results.show', compact('test', 'results'));
-
-
     }
 
 
@@ -43,6 +37,7 @@ class ResultController extends Controller
     {
         $results = Test::with('quiz')->withCount('questions')->where('user_id', auth()->id())->paginate();
 
-        return view('front.results.index', $results);
+        return view('front.results.index', compact('results'));
     }
+
 }

@@ -5,8 +5,9 @@ namespace App\Livewire\Front;
 use App\Models\QuestionQuiz;
 use App\Models\Quiz;
 use App\Models\User;
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Illuminate\Database\Eloquent\Collection;
 
 class Leaderboard extends Component
 {
@@ -18,8 +19,6 @@ class Leaderboard extends Component
     {
         $this->quizzes = Quiz::where('public', 1)->where('published', 1)->get();
     }
-
-
 
     public function render(): View
     {
@@ -42,6 +41,7 @@ class Leaderboard extends Component
             ->groupBy('users.id', 'users.name')
             ->orderBy('correct', 'desc')
             ->orderBy('time_spent')
+            ->take(100)
             ->get();
 
         return view('livewire.front.leaderboard', compact('users', 'total_questions'));

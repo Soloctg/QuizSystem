@@ -58,22 +58,20 @@ class QuizForm extends Component
     }
 
     public function save(): Redirector|RedirectResponse
-        {
+    {
             $this->validate();
 
             if (empty($this->quiz)) {
                 $this->quiz = Quiz::create($this->only(['title', 'slug', 'description', 'published', 'public']));
-            }
-
-            else {
+            }else {
                 $this->quiz->update($this->only(['title', 'slug', 'description', 'published', 'public']));
             }
-
+        
             $this->quiz->questions()->sync($this->questions);
-
-            return to_route('quizzes');
-
-        }
+        
+        return to_route('quizzes');
+        
+    }
 
         protected function rules(): array
         {

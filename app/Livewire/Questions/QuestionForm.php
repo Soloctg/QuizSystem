@@ -10,18 +10,17 @@ use Livewire\Features\SupportRedirects\Redirector;
 class QuestionForm extends Component
 {
 
+    public ?Question $question = null;
 
-        //public ?Question $question = null;
-        public Question $question;
+    public string $question_text = '';
+    public string|null $code_snippet = '';
+    public string|null $answer_explanation = '';
+    public string|null $more_info_link = '';
 
-        public string $question_text = '';
-        public string|null $code_snippet = '';
-        public string|null $answer_explanation = '';
-        public string|null $more_info_link = '';
+    public bool $editing = false;
 
-        public bool $editing = false;
+    public array $questionOptions = [];
 
-        public array $questionOptions = [];
 
 
     public function render(): View
@@ -35,6 +34,10 @@ class QuestionForm extends Component
         if ($question->exists) {
             $this->question = $question;
             $this->editing = true;
+            $this->question_text = $question->question_text;
+            $this->code_snippet = $question->code_snippet;
+            $this->answer_explanation = $question->answer_explanation;
+            $this->more_info_link = $question->more_info_link;
 
             foreach ($question->questionOptions as $option) {
                 $this->questionOptions[] = [
@@ -43,11 +46,6 @@ class QuestionForm extends Component
                     'correct' => $option->correct,
                 ];
             }
-
-            $this->question_text = $question->question_text;
-            $this->code_snippet = $question->code_snippet;
-            $this->answer_explanation = $question->answer_explanation;
-            $this->more_info_link = $question->more_info_link;
         }
     }
 
@@ -72,9 +70,7 @@ class QuestionForm extends Component
 
         if (empty($this->question)) {
             $this->question = Question::create($this->only(['question_text', 'code_snippet', 'answer_explanation', 'more_info_link']));
-        }
-
-        else {
+        }else {
             $this->question->update($this->only(['question_text', 'code_snippet', 'answer_explanation', 'more_info_link']));
         }
 
